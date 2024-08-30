@@ -1,6 +1,14 @@
+const root = document.documentElement;
 const grid = document.querySelector(".grid");
 const sizeInput = document.getElementById("size");
 const sizeSpanValue = document.getElementById("sizeSpan");
+const colorInput = document.getElementById("color");
+const clearButton = document.getElementById("clear");
+
+var color = "#000";
+colorInput.value = color;
+
+root.style.setProperty("--main-color", color);
 
 sizeInput.value = 16;
 sizeSpanValue.textContent = `${sizeInput.value} x ${sizeInput.value}`;
@@ -11,7 +19,18 @@ sizeInput.addEventListener("input", () => {
   createGrid(sizeInput.value);
 });
 
-var color = "#333";
+colorInput.addEventListener("input", () => {
+  color = colorInput.value;
+  root.style.setProperty("--main-color", color);
+});
+
+clearButton.addEventListener("click", () => {
+  colorInput.value = "#000";
+  color = "#000";
+  root.style.setProperty("--main-color", color);
+  deleteGrid();
+  createGrid(sizeInput.value);
+});
 
 const createGrid = (size) => {
   for (let i = 0; i < size * size; i++) {
